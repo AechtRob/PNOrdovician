@@ -2,6 +2,7 @@
 package net.pnordovician.world.biome.ordovician;
 
 import net.lepidodendron.block.BlockCoral;
+import net.lepidodendron.block.BlockStromatoporoideaReef;
 import net.lepidodendron.util.EnumBiomeTypeOrdovician;
 import net.lepidodendron.world.gen.*;
 import net.minecraft.block.material.Material;
@@ -119,7 +120,7 @@ public class BiomeOrdovicianSeaIcebergs extends ElementsPNOrdovicianMod.ModEleme
 									&& (worldIn.getBlockState(pos1.up()).getMaterial() == Material.WATER)
 									&& (worldIn.getBlockState(pos1.up(2)).getMaterial() == Material.WATER)
 					) {
-						REEF_GENERATOR.generate(worldIn, rand, pos1, 2, BlockCoral.block.getDefaultState());
+						REEF_GENERATOR.generate(worldIn, rand, pos1, 2, BlockStromatoporoideaReef.block.getDefaultState());
 					}
 				}
 
