@@ -1,11 +1,14 @@
 package net.pnordovician.world.dimension.ordovician;
 
-import net.lepidodendron.block.BlockCoral;
-import net.lepidodendron.block.BlockGravelWavy;
-import net.lepidodendron.block.BlockSandWavy;
+import net.lepidodendron.block.*;
+import net.lepidodendron.util.EnumBiomeTypeCambrian;
+import net.lepidodendron.util.EnumBiomeTypeOrdovician;
 import net.lepidodendron.world.biome.ChunkGenSpawner;
-import net.pnordovician.world.biome.ordovician.BiomeOrdovicianLand;
-import net.pnordovician.world.biome.ordovician.BiomeOrdovicianSpongeForest;
+import net.lepidodendron.world.biome.cambrian.BiomeCambrian;
+import net.lepidodendron.world.biome.ordovician.BiomeOrdovician;
+import net.lepidodendron.world.gen.WorldGenCambrianLakesFlat;
+import net.lepidodendron.world.gen.WorldGenOrdovicianBogLakes;
+import net.pnordovician.world.biome.ordovician.*;
 import net.lepidodendron.world.gen.WorldGenPrehistoricLakes;
 import net.minecraft.block.BlockFalling;
 import net.minecraft.block.BlockSand;
@@ -127,14 +130,28 @@ public class ChunkProviderOrdovician implements IChunkGenerator {
         long l = this.random.nextLong() / 2 * 2 + 1;
         this.random.setSeed((long) x * k + (long) z * l ^ this.world.getSeed());
         net.minecraftforge.event.ForgeEventFactory.onChunkPopulate(true, this, this.world, this.random, x, z, false);
-        if (this.random.nextInt(4) == 0)
-            if (net.minecraftforge.event.terraingen.TerrainGen.populate(this, this.world, this.random, x, z, false,
-                    net.minecraftforge.event.terraingen.PopulateChunkEvent.Populate.EventType.LAKE)) {
-                int i1 = this.random.nextInt(16) + 8;
-                int j1 = this.random.nextInt(256);
-                int k1 = this.random.nextInt(16) + 8;
-                (new WorldGenPrehistoricLakes(FLUID.getBlock())).generate(this.world, this.random, blockpos.add(i1, j1, k1));
+
+        if (((BiomeOrdovician) biome).getBiomeType() == EnumBiomeTypeOrdovician.Bog) {
+            for (int lake = 0; lake < 4; ++lake) {
+                if (net.minecraftforge.event.terraingen.TerrainGen.populate(this, this.world, this.random, x, z, false,
+                        net.minecraftforge.event.terraingen.PopulateChunkEvent.Populate.EventType.LAKE)) {
+                    int i1 = this.random.nextInt(16) + 8;
+                    int j1 = this.random.nextInt(256);
+                    int k1 = this.random.nextInt(16) + 8;
+                    (new WorldGenOrdovicianBogLakes(Blocks.WATER)).generate(this.world, this.random, blockpos.add(i1, j1, k1));
+                }
             }
+        }
+        else {
+            if (this.random.nextInt(4) == 0)
+                if (net.minecraftforge.event.terraingen.TerrainGen.populate(this, this.world, this.random, x, z, false,
+                        net.minecraftforge.event.terraingen.PopulateChunkEvent.Populate.EventType.LAKE)) {
+                    int i1 = this.random.nextInt(16) + 8;
+                    int j1 = this.random.nextInt(256);
+                    int k1 = this.random.nextInt(16) + 8;
+                    (new WorldGenPrehistoricLakes(FLUID.getBlock())).generate(this.world, this.random, blockpos.add(i1, j1, k1));
+                }
+        }
 
         net.minecraftforge.common.MinecraftForge.EVENT_BUS
                 .post(new net.minecraftforge.event.terraingen.DecorateBiomeEvent.Pre(this.world, this.random, blockpos));
@@ -301,11 +318,28 @@ public class ChunkProviderOrdovician implements IChunkGenerator {
                     double d2 = this.limitRegMin[i] / (double) 512;
                     double d3 = this.limitRegMax[i] / (double) 512;
                     double d4 = (this.noiseRegMain[i] / 10.0D + 1.0D) / 2.0D;
+
+                    if (biome == BiomeOrdovicianLandFlat.biome) {
+                        //Flatten these out somewhat:
+                        d4 = 1.0F;
+                        d2 = d4;
+                        d3 = d4;
+                    }
+
+                    if (biome == BiomeOrdovicianBog.biome
+                        || biome == BiomeOrdovicianCreekBog.biome) {
+                        //Flatten these out somewhat:
+                        d4 = (1.0F + d4) / 2.0F;
+                        d2 = d4;
+                        d3 = d4;
+                    }
+
                     double d5 = MathHelper.clampedLerp(d2, d3, d4) - d1;
                     if (l1 > 29) {
                         double d6 = (double) ((float) (l1 - 29) / 3.0F);
                         d5 = d5 * (1.0D - d6) + -10.0D * d6;
                     }
+
                     this.heightMap[i] = d5;
                     ++i;
                 }
@@ -363,9 +397,51 @@ public class ChunkProviderOrdovician implements IChunkGenerator {
                             }
                         }
 
-                        //Add moss in the Wetlands
-                        if (iblockstate == Blocks.STONE.getDefaultState()
-                                && (biome == BiomeOrdovicianLand.biome)
+                        //For the Land biomes, make hills a bit craggy:
+                        if (((BiomeOrdovician)biome).getBiomeType() == EnumBiomeTypeOrdovician.BarrenLand
+                        ) {
+                            //If it's over 90 blocks then start to fill in more as cobble
+                            //up to 145
+                            int minHeight = 90;
+                            if (j1 >= minHeight) {
+                                int j2 = Math.max(0, 145 - j1);
+                                double stoneFactor = 4 * (double) j2 / (145D - (double) minHeight);
+                                if (Math.random() >= stoneFactor) {
+                                    if (Math.random() > 0.22) {
+                                        iblockstate = Blocks.COBBLESTONE.getDefaultState();
+                                    } else {
+                                        iblockstate = Blocks.GRAVEL.getStateFromMeta(0);
+                                        if (rand.nextInt(8) == 0) {
+                                            iblockstate = Blocks.COBBLESTONE.getDefaultState();
+                                        }
+                                    }
+                                }
+                                if (Math.random() >= stoneFactor) {
+                                    iblockstate1 = Blocks.COBBLESTONE.getDefaultState();
+                                    if (rand.nextInt(8) == 0) {
+                                        iblockstate1 = Blocks.GRAVEL.getDefaultState();
+                                    }
+                                }
+                            }
+
+
+                            //If it's over 120 blocks then start to fill in more as SNOW
+                            //up to 200
+                            minHeight = 120;
+                            if (j1 >= minHeight) {
+                                int j2 = Math.max(0, 200 - j1);
+                                double stoneFactor = 4 * (double) j2 / (200D - (double) minHeight);
+                                if (Math.random() >= stoneFactor) {
+                                    if (Math.random() > 0.22) {
+                                        iblockstate = Blocks.SNOW.getDefaultState();
+                                    }
+                                }
+                            }
+                        }
+
+                        //Add gravel in frozen land
+                        if (iblockstate == Blocks.SNOW.getDefaultState()
+                                && (biome == BiomeOrdovicianLandFrozen.biome)
                                 && rand.nextInt(8) == 0) {
                             iblockstate = Blocks.GRAVEL.getDefaultState();
                         }
@@ -378,21 +454,84 @@ public class ChunkProviderOrdovician implements IChunkGenerator {
                         } else if (j1 < i - 1) {
                             iblockstate = AIR;
                             iblockstate1 = STONE;
-                            if (Math.random() > 0.7) {
+                            if (biome == BiomeOrdovicianReefAlgae.biome
+                                    && rand.nextInt(5) == 0) {
+                                chunkPrimerIn.setBlockState(i1, j1, l, BlockBacterialLayer.block.getDefaultState());
+                            }
+                            if (biome == BiomeOrdovicianReefAlgae.biome
+                                    && rand.nextInt(3) == 0) {
+                                int s = rand.nextInt(4);
+                                switch (s) {
+                                    case 0: default:
+                                        chunkPrimerIn.setBlockState(i1, j1, l, BlockAlgalReef.block.getDefaultState().withProperty(BlockAlgalReef.FACING, EnumFacing.NORTH));
+                                        break;
+
+                                    case 1:
+                                        chunkPrimerIn.setBlockState(i1, j1, l, BlockAlgalReef.block.getDefaultState().withProperty(BlockAlgalReef.FACING, EnumFacing.EAST));
+                                        break;
+
+                                    case 2:
+                                        chunkPrimerIn.setBlockState(i1, j1, l, BlockAlgalReef.block.getDefaultState().withProperty(BlockAlgalReef.FACING, EnumFacing.SOUTH));
+                                        break;
+
+                                    case 3:
+                                        chunkPrimerIn.setBlockState(i1, j1, l, BlockAlgalReef.block.getDefaultState().withProperty(BlockAlgalReef.FACING, EnumFacing.WEST));
+                                        break;
+                                }
+                            }
+                            else if (biome == BiomeOrdovicianReefBryozoan.biome
+                                    && rand.nextInt(3) == 0) {
+                                int s = rand.nextInt(4);
+                                switch (s) {
+                                    case 0: default:
+                                        chunkPrimerIn.setBlockState(i1, j1, l, BlockBryozoanReef.block.getDefaultState().withProperty(BlockBryozoanReef.FACING, EnumFacing.NORTH));
+                                        break;
+
+                                    case 1:
+                                        chunkPrimerIn.setBlockState(i1, j1, l, BlockBryozoanReef.block.getDefaultState().withProperty(BlockBryozoanReef.FACING, EnumFacing.EAST));
+                                        break;
+
+                                    case 2:
+                                        chunkPrimerIn.setBlockState(i1, j1, l, BlockBryozoanReef.block.getDefaultState().withProperty(BlockBryozoanReef.FACING, EnumFacing.SOUTH));
+                                        break;
+
+                                    case 3:
+                                        chunkPrimerIn.setBlockState(i1, j1, l, BlockBryozoanReef.block.getDefaultState().withProperty(BlockBryozoanReef.FACING, EnumFacing.WEST));
+                                        break;
+                                }
+                            }
+                            else if (biome == BiomeOrdovicianBog.biome || biome == BiomeOrdovicianCreekBog.biome) {
+                                if (rand.nextInt(3) == 0) {
+                                    chunkPrimerIn.setBlockState(i1, j1, l, BlockSandBlackWavy.block.getDefaultState());
+                                }
+                                else {
+                                    chunkPrimerIn.setBlockState(i1, j1, l, BlockPeat.block.getDefaultState());
+                                }
+                            }
+                            else if (((BiomeOrdovician)biome).getBiomeType() == EnumBiomeTypeOrdovician.FrozenOcean) {
+                                int nn = 1;
+                                while (j1 + nn < 38) {
+                                    if (!chunkPrimerIn.getBlockState(i1, j1 + nn, l).getMaterial().isSolid()) {
+                                        chunkPrimerIn.setBlockState(i1, j1 + nn, l, Blocks.PACKED_ICE.getDefaultState());
+                                    }
+                                    nn ++;
+                                }
+                            }
+                            else if (Math.random() > 0.7) {
                                 if (biome == BiomeOrdovicianSpongeForest.biome && j1 < i - 6) {
                                     int r = rand.nextInt(6);
                                     switch (r) {
                                         case 0: default:
-                                            chunkPrimerIn.setBlockState(i1, j1, l, BlockCoral.block.getDefaultState().withProperty(BlockCoral.FACING, EnumFacing.NORTH));
+                                            chunkPrimerIn.setBlockState(i1, j1, l, BlockStromatoporoideaReef.block.getDefaultState().withProperty(BlockStromatoporoideaReef.FACING, EnumFacing.NORTH));
                                             break;
                                         case 1:
-                                            chunkPrimerIn.setBlockState(i1, j1, l, BlockCoral.block.getDefaultState().withProperty(BlockCoral.FACING, EnumFacing.EAST));
+                                            chunkPrimerIn.setBlockState(i1, j1, l, BlockStromatoporoideaReef.block.getDefaultState().withProperty(BlockStromatoporoideaReef.FACING, EnumFacing.EAST));
                                             break;
                                         case 2:
-                                            chunkPrimerIn.setBlockState(i1, j1, l, BlockCoral.block.getDefaultState().withProperty(BlockCoral.FACING, EnumFacing.SOUTH));
+                                            chunkPrimerIn.setBlockState(i1, j1, l, BlockStromatoporoideaReef.block.getDefaultState().withProperty(BlockStromatoporoideaReef.FACING, EnumFacing.SOUTH));
                                             break;
                                         case 3:
-                                            chunkPrimerIn.setBlockState(i1, j1, l, BlockCoral.block.getDefaultState().withProperty(BlockCoral.FACING, EnumFacing.WEST));
+                                            chunkPrimerIn.setBlockState(i1, j1, l, BlockStromatoporoideaReef.block.getDefaultState().withProperty(BlockStromatoporoideaReef.FACING, EnumFacing.WEST));
                                             break;
                                         case 4:
                                             chunkPrimerIn.setBlockState(i1, j1, l, Blocks.STONE.getDefaultState());

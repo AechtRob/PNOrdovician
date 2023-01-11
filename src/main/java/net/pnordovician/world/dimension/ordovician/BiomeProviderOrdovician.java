@@ -1,7 +1,6 @@
 package net.pnordovician.world.dimension.ordovician;
 
 import com.google.common.collect.Lists;
-import net.lepidodendron.world.dimension.ordovician.GenLayerOrdovician.GenLayerOrdovician;
 import net.minecraft.crash.CrashReport;
 import net.minecraft.crash.CrashReportCategory;
 import net.minecraft.util.ReportedException;
@@ -14,6 +13,7 @@ import net.minecraft.world.biome.BiomeProvider;
 import net.minecraft.world.gen.layer.GenLayer;
 import net.minecraft.world.gen.layer.IntCache;
 import net.minecraft.world.storage.WorldInfo;
+import net.pnordovician.world.dimension.ordovician.GenLayerOrdovician.GenLayerOrdovician;
 
 import javax.annotation.Nullable;
 import java.util.List;

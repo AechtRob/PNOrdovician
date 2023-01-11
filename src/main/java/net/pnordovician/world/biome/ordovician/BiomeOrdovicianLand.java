@@ -1,7 +1,9 @@
 
 package net.pnordovician.world.biome.ordovician;
 
+import net.lepidodendron.ElementsLepidodendronMod;
 import net.lepidodendron.util.EnumBiomeTypeOrdovician;
+import net.lepidodendron.world.biome.ordovician.BiomeOrdovician;
 import net.lepidodendron.world.gen.*;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
@@ -10,15 +12,14 @@ import net.minecraft.world.gen.feature.WorldGenAbstractTree;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.pnordovician.ElementsPNOrdovicianMod;
 
 import java.util.Random;
 
-@ElementsPNOrdovicianMod.ModElement.Tag
-public class BiomeOrdovicianLand extends ElementsPNOrdovicianMod.ModElement {
+@ElementsLepidodendronMod.ModElement.Tag
+public class BiomeOrdovicianLand extends ElementsLepidodendronMod.ModElement {
 	@GameRegistry.ObjectHolder("lepidodendron:ordovician_land")
 	public static final BiomeGenCustom biome = null;
-	public BiomeOrdovicianLand(ElementsPNOrdovicianMod instance) {
+	public BiomeOrdovicianLand(ElementsLepidodendronMod instance) {
 		super(instance, 1591);
 	}
 
@@ -35,7 +36,7 @@ public class BiomeOrdovicianLand extends ElementsPNOrdovicianMod.ModElement {
 
 	static class BiomeGenCustom extends BiomeOrdovician {
 		public BiomeGenCustom() {
-			super(new BiomeProperties("Ordovician Barren Land").setRainfall(0.5F).setBaseHeight(0.6F).setHeightVariation(0.2F).setTemperature(0.5F));
+			super(new BiomeProperties("Ordovician Barren Land").setRainfall(0.5F).setBaseHeight(0.6F).setHeightVariation(0.4F).setTemperature(0.5F));
 			setRegistryName("lepidodendron:ordovician_land");
 			topBlock = Blocks.STONE.getStateFromMeta(0);
 			fillerBlock = Blocks.STONE.getStateFromMeta(0);
@@ -46,7 +47,7 @@ public class BiomeOrdovicianLand extends ElementsPNOrdovicianMod.ModElement {
 			decorator.bigMushroomsPerChunk = 0;
 			decorator.reedsPerChunk = 0;
 			decorator.cactiPerChunk = 0;
-			decorator.sandPatchesPerChunk = 100;
+			decorator.sandPatchesPerChunk = 0;
 			decorator.gravelPatchesPerChunk = 0;
 			this.spawnableMonsterList.clear();
 			this.spawnableCreatureList.clear();
@@ -54,7 +55,6 @@ public class BiomeOrdovicianLand extends ElementsPNOrdovicianMod.ModElement {
 			this.spawnableCaveCreatureList.clear();
 		}
 
-		protected static final WorldGenArchaeopterisTree ARCHAEOPTERIS_TREE = new WorldGenArchaeopterisTree(false);
 		protected static final WorldGenRockPiles ROCK_PILES_GENERATOR = new WorldGenRockPiles();
     	protected static final WorldGenDollyphyton DOLLYPHYTON_GENERATOR = new WorldGenDollyphyton();
 		protected static final WorldGenEdwardsiphyton EDWARDSIPHYTON_GENERATOR = new WorldGenEdwardsiphyton();
@@ -62,7 +62,7 @@ public class BiomeOrdovicianLand extends ElementsPNOrdovicianMod.ModElement {
 
 		public WorldGenAbstractTree getRandomTreeFeature(Random rand)
 	    {
-	        return ARCHAEOPTERIS_TREE;
+	        return null;
 	    }
 
 		@Override
@@ -91,7 +91,7 @@ public class BiomeOrdovicianLand extends ElementsPNOrdovicianMod.ModElement {
 				}
 	        
 	        if(net.minecraftforge.event.terraingen.TerrainGen.decorate(worldIn, rand, new net.minecraft.util.math.ChunkPos(pos), net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.GRASS))
-	        for (int i = 0; i < 30; ++i)
+	        for (int i = 0; i < 10; ++i)
 	        {
 	            int j = rand.nextInt(16) + 8;
 	            int k = rand.nextInt(16) + 8;
@@ -100,7 +100,7 @@ public class BiomeOrdovicianLand extends ElementsPNOrdovicianMod.ModElement {
 	        }
 
 	        if(net.minecraftforge.event.terraingen.TerrainGen.decorate(worldIn, rand, new net.minecraft.util.math.ChunkPos(pos), net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.GRASS))
-	        for (int i = 0; i < 30; ++i)
+	        for (int i = 0; i < 10; ++i)
 	        {
 	            int j = rand.nextInt(16) + 8;
 	            int k = rand.nextInt(16) + 8;
@@ -113,7 +113,7 @@ public class BiomeOrdovicianLand extends ElementsPNOrdovicianMod.ModElement {
 
 		@Override
 		public EnumBiomeTypeOrdovician getBiomeType() {
-			return EnumBiomeTypeOrdovician.Land;
+			return EnumBiomeTypeOrdovician.BarrenLand;
 		}
 	}
 

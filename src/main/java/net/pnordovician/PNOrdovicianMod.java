@@ -1,5 +1,6 @@
 package net.pnordovician;
 
+import net.lepidodendron.ElementsLepidodendronMod;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.potion.Potion;
@@ -21,7 +22,6 @@ import net.minecraftforge.fml.common.registry.EntityEntry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.pnordovician.ElementsPNOrdovicianMod;
 import net.pnordovician.IProxyPNOrdovicianMod;
 import net.pnordovician.PNWandHandler;
 
@@ -44,7 +44,7 @@ public class PNOrdovicianMod {
         MinecraftForge.EVENT_BUS.register(this);
         GameRegistry.registerWorldGenerator(elements, 5);
         GameRegistry.registerFuelHandler(elements);
-        NetworkRegistry.INSTANCE.registerGuiHandler(this, new ElementsPNOrdovicianMod.GuiHandler());
+        NetworkRegistry.INSTANCE.registerGuiHandler(this, new ElementsLepidodendronMod.GuiHandler());
         elements.preInit(event);
         MinecraftForge.EVENT_BUS.register(elements);
         elements.getElements().forEach(element -> element.preInit(event));

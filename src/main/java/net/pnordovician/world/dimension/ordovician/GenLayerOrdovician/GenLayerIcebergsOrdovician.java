@@ -1,4 +1,4 @@
-package net.lepidodendron.world.dimension.ordovician.GenLayerOrdovician;
+package net.pnordovician.world.dimension.ordovician.GenLayerOrdovician;
 
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.biome.Biome;
@@ -7,17 +7,17 @@ import net.minecraft.world.gen.layer.IntCache;
 
 public class GenLayerIcebergsOrdovician extends GenLayer {
 
-    public  Biome OS_SEA_ICE = Biome.REGISTRY.getObject(new ResourceLocation("lepidodendron:ordovician_sea_ice"));
-    public  int OS_SEA_ICE_ID =  Biome.getIdForBiome(OS_SEA_ICE);
-    public  Biome OS_ICEBERGS = Biome.REGISTRY.getObject(new ResourceLocation("lepidodendron:ordovician_sea_icebergs"));
-    public  int OS_ICEBERGS_ID =  Biome.getIdForBiome(OS_ICEBERGS);
+    public  Biome ORDOVICIAN_SEA_ICE = Biome.REGISTRY.getObject(new ResourceLocation("lepidodendron:ordovician_sea_ice"));
+    public  int ORDOVICIAN_SEA_ICE_ID =  Biome.getIdForBiome(ORDOVICIAN_SEA_ICE);
+    public  Biome ORDOVICIAN_ICEBERGS = Biome.REGISTRY.getObject(new ResourceLocation("lepidodendron:ordovician_sea_icebergs"));
+    public  int ORDOVICIAN_ICEBERGS_ID =  Biome.getIdForBiome(ORDOVICIAN_ICEBERGS);
 
     private final int SeaBiomes[] = new int[] {
-        OS_SEA_ICE_ID,
-        OS_SEA_ICE_ID,
-        OS_SEA_ICE_ID,
-        OS_SEA_ICE_ID,
-        OS_ICEBERGS_ID
+        ORDOVICIAN_SEA_ICE_ID,
+        ORDOVICIAN_SEA_ICE_ID,
+        ORDOVICIAN_SEA_ICE_ID,
+        ORDOVICIAN_SEA_ICE_ID,
+        ORDOVICIAN_ICEBERGS_ID
     };
 
     public GenLayerIcebergsOrdovician(long seed, GenLayer genlayer) {
@@ -39,7 +39,7 @@ public class GenLayerIcebergsOrdovician extends GenLayer {
                 int k = aint[j + 1 + (i + 1) * (areaWidth + 2)];
                 Biome biome = Biome.getBiome(k);
 
-                if (k == OS_SEA_ICE_ID)
+                if (k == ORDOVICIAN_SEA_ICE_ID)
                 {
                     int l1 = aint[j + 1 + (i + 1 - 1) * (areaWidth + 2)];
                     int k2 = aint[j + 1 + 1 + (i + 1) * (areaWidth + 2)];
@@ -66,7 +66,7 @@ public class GenLayerIcebergsOrdovician extends GenLayer {
     }
 
     private boolean isOcean(int biomeID) {
-        if (biomeID == OS_SEA_ICE_ID || biomeID == OS_ICEBERGS_ID) {
+        if (biomeID == ORDOVICIAN_SEA_ICE_ID || biomeID == ORDOVICIAN_ICEBERGS_ID) {
             return true;
         }
         return false;

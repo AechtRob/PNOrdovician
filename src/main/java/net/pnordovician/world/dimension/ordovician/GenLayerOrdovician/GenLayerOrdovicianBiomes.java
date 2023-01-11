@@ -1,6 +1,5 @@
-package net.lepidodendron.world.dimension.ordovician.GenLayerOrdovician;
+package net.pnordovician.world.dimension.ordovician.GenLayerOrdovician;
 
-//import net.lepidodendron.world.biome.devonian.
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.layer.GenLayer;
@@ -8,23 +7,16 @@ import net.minecraft.world.gen.layer.IntCache;
 
 public class GenLayerOrdovicianBiomes extends GenLayer {
 
-    public Biome OS_OCEAN = Biome.REGISTRY.getObject(new ResourceLocation("lepidodendron:ordovician_sea"));
-    public  int OS_OCEAN_ID =  Biome.getIdForBiome(OS_OCEAN);
-    public  Biome OS_LAND = Biome.REGISTRY.getObject(new ResourceLocation("lepidodendron:ordovician_land"));
-    public  int OS_LAND_ID =  Biome.getIdForBiome(OS_LAND);
-    public  Biome OS_OCEAN_ICE = Biome.REGISTRY.getObject(new ResourceLocation("lepidodendron:ordovician_sea_ice"));
-    public  int OS_OCEAN_ICE_ID =  Biome.getIdForBiome(OS_OCEAN_ICE);
-    public  Biome OS_SPONGE_FOREST = Biome.REGISTRY.getObject(new ResourceLocation("lepidodendron:ordovician_sponge_forest"));
-    public  int OS_SPONGE_FOREST_ID =  Biome.getIdForBiome(OS_SPONGE_FOREST);
-
-    private final int OSBiomes[] = new int[] {
-        OS_OCEAN_ID,
-        OS_OCEAN_ID,
-        OS_OCEAN_ID,
-        OS_OCEAN_ICE_ID,
-        OS_LAND_ID,
-        OS_LAND_ID,
-        OS_SPONGE_FOREST_ID
+    public Biome ORDOVICIAN_OCEAN = Biome.REGISTRY.getObject(new ResourceLocation("lepidodendron:ordovician_sea_shore"));
+    public int ORDOVICIAN_OCEAN_ID =  Biome.getIdForBiome(ORDOVICIAN_OCEAN);
+    public Biome ORDOVICIAN_OCEAN_ICE = Biome.REGISTRY.getObject(new ResourceLocation("lepidodendron:ordovician_sea_shore_frozen"));
+    public int ORDOVICIAN_OCEAN_ICE_ID =  Biome.getIdForBiome(ORDOVICIAN_OCEAN_ICE);
+    
+    private final int OrdovicianBiomes[] = new int[] {
+            //This dimensiin is a bit different.... first divide into frozen and normal zones:
+            ORDOVICIAN_OCEAN_ID,
+            ORDOVICIAN_OCEAN_ID,
+            ORDOVICIAN_OCEAN_ICE_ID
     };
 
     public GenLayerOrdovicianBiomes(long seed) {
@@ -37,7 +29,7 @@ public class GenLayerOrdovicianBiomes extends GenLayer {
         for (int dz = 0; dz < height; dz++) {
             for (int dx = 0; dx < width; dx++) {
                 initChunkSeed(dx + x, dz + z);
-                dest[dx + dz * width] = OSBiomes[nextInt(OSBiomes.length)];
+                dest[dx + dz * width] = OrdovicianBiomes[nextInt(OrdovicianBiomes.length)];
             }
         }
         return dest;

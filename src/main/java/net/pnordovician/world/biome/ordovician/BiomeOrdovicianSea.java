@@ -1,9 +1,12 @@
 
 package net.pnordovician.world.biome.ordovician;
 
+import net.lepidodendron.ElementsLepidodendronMod;
+import net.lepidodendron.block.BlockBryozoanReef;
 import net.lepidodendron.block.BlockCoral;
 import net.lepidodendron.block.BlockStromatoporoideaReef;
 import net.lepidodendron.util.EnumBiomeTypeOrdovician;
+import net.lepidodendron.world.biome.ordovician.BiomeOrdovician;
 import net.lepidodendron.world.gen.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
@@ -13,15 +16,14 @@ import net.minecraft.world.gen.feature.WorldGenAbstractTree;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.pnordovician.ElementsPNOrdovicianMod;
 
 import java.util.Random;
 
-@ElementsPNOrdovicianMod.ModElement.Tag
-public class BiomeOrdovicianSea extends ElementsPNOrdovicianMod.ModElement {
+@ElementsLepidodendronMod.ModElement.Tag
+public class BiomeOrdovicianSea extends ElementsLepidodendronMod.ModElement {
 	@GameRegistry.ObjectHolder("lepidodendron:ordovician_sea")
 	public static final BiomeGenCustom biome = null;
-	public BiomeOrdovicianSea(ElementsPNOrdovicianMod instance) {
+	public BiomeOrdovicianSea(ElementsLepidodendronMod instance) {
 		super(instance, 1591);
 	}
 
@@ -36,9 +38,9 @@ public class BiomeOrdovicianSea extends ElementsPNOrdovicianMod.ModElement {
 		BiomeDictionary.addTypes(biome, BiomeDictionary.Type.WATER);
 	}
 
-	static class BiomeGenCustom extends net.pnordovician.world.biome.ordovician.BiomeOrdovician {
+	static class BiomeGenCustom extends BiomeOrdovician {
 		public BiomeGenCustom() {
-			super(new BiomeProperties("Ordovician Sea").setRainfall(0.5F).setBaseHeight(-0.8F).setHeightVariation(0.05F).setTemperature(0.5F));
+			super(new BiomeProperties("Ordovician Ocean").setRainfall(0.5F).setBaseHeight(-1.8F).setHeightVariation(0.09F).setTemperature(0.5F));
 			setRegistryName("lepidodendron:ordovician_sea");
 			topBlock = Blocks.GRAVEL.getDefaultState();
 			fillerBlock = Blocks.GRAVEL.getDefaultState();
@@ -49,7 +51,7 @@ public class BiomeOrdovicianSea extends ElementsPNOrdovicianMod.ModElement {
 			decorator.bigMushroomsPerChunk = 0;
 			decorator.reedsPerChunk = 0;
 			decorator.cactiPerChunk = 0;
-			decorator.sandPatchesPerChunk = 300;
+			decorator.sandPatchesPerChunk = 2;
 			decorator.gravelPatchesPerChunk = 0;
 			this.spawnableMonsterList.clear();
 			this.spawnableCreatureList.clear();
@@ -57,7 +59,6 @@ public class BiomeOrdovicianSea extends ElementsPNOrdovicianMod.ModElement {
 			this.spawnableCaveCreatureList.clear();
 		}
 
-		protected static final WorldGenNullTree NULL_TREE = new WorldGenNullTree(false);
 		protected static final WorldGenRockPiles ROCK_PILES_GENERATOR = new WorldGenRockPiles();
     	protected static final WorldGenDollyphyton DOLLYPHYTON_GENERATOR = new WorldGenDollyphyton();
 		protected static final WorldGenEdwardsiphyton EDWARDSIPHYTON_GENERATOR = new WorldGenEdwardsiphyton();
@@ -66,7 +67,7 @@ public class BiomeOrdovicianSea extends ElementsPNOrdovicianMod.ModElement {
 
 		public WorldGenAbstractTree getRandomTreeFeature(Random rand)
 	    {
-			return NULL_TREE;
+			return null;
 	    }
 
 		@Override
@@ -126,17 +127,24 @@ public class BiomeOrdovicianSea extends ElementsPNOrdovicianMod.ModElement {
 			if(net.minecraftforge.event.terraingen.TerrainGen.decorate(worldIn, rand, new net.minecraft.util.math.ChunkPos(pos), net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.ROCK))
 				for (int i = 0; i < 8; ++i)
 				{
-					int j = rand.nextInt(16) + 8;
-					int k = rand.nextInt(16) + 8;
+					int radius = 2;
+					int j;
+					int k;
+					if (radius < 14) {
+						j = 16 + rand.nextInt(16 - radius - 2) - rand.nextInt(16 - radius - 2);
+						k = 16 + rand.nextInt(16 - radius - 2) - rand.nextInt(16 - radius - 2);
+					}
+					else {
+						radius = 14;
+						j = 16;
+						k = 16;
+					}
 					int l = rand.nextInt(worldIn.getHeight(pos.add(j, 0, k)).getY() + 32);
 					BlockPos pos1 = pos.add(j, l, k);
 					if (
-							(pos1.getY() < worldIn.getSeaLevel() - 5)
-									&& (worldIn.getBlockState(pos1).getMaterial() == Material.WATER)
-									&& (worldIn.getBlockState(pos1.up()).getMaterial() == Material.WATER)
-									&& (worldIn.getBlockState(pos1.up(2)).getMaterial() == Material.WATER)
+							(pos1.getY() < worldIn.getSeaLevel())
 					) {
-						REEF_GENERATOR.generate(worldIn, rand, pos1, 14, BlockStromatoporoideaReef.block.getDefaultState());
+						REEF_GENERATOR.generate(worldIn, rand, pos1, radius, BlockStromatoporoideaReef.block.getDefaultState());
 					}
 				}
 	        super.decorate(worldIn, rand, pos);
