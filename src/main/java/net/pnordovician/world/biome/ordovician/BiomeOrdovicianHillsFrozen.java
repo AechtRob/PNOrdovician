@@ -39,7 +39,7 @@ public class BiomeOrdovicianHillsFrozen extends ElementsLepidodendronMod.ModElem
 
 	static class BiomeGenCustom extends BiomeOrdovician {
 		public BiomeGenCustom() {
-			super(new BiomeProperties("Ordovician Frozen Jagged Wastes").setRainfall(0.4F).setBaseHeight(2.25F).setHeightVariation(1.4F).setTemperature(-1.8F).setSnowEnabled());
+			super(new BiomeProperties("Ordovician Frozen Jagged Wastes").setRainfall(0.4F).setBaseHeight(2.65F).setHeightVariation(0.75F).setTemperature(-1.8F).setSnowEnabled());
 			setRegistryName("lepidodendron:ordovician_hills_frozen");
 			topBlock = Blocks.STONE.getStateFromMeta(0);
 			fillerBlock = Blocks.STONE.getStateFromMeta(0);
