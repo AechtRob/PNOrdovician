@@ -35,6 +35,8 @@ public class BiomeOrdovicianHillsFrozen extends ElementsLepidodendronMod.ModElem
 		BiomeDictionary.addTypes(biome, BiomeDictionary.Type.WASTELAND);
 		BiomeDictionary.addTypes(biome, BiomeDictionary.Type.DEAD);
 		BiomeDictionary.addTypes(biome, BiomeDictionary.Type.HILLS);
+		BiomeDictionary.addTypes(biome, BiomeDictionary.Type.COLD);
+		BiomeDictionary.addTypes(biome, BiomeDictionary.Type.SNOWY);
 	}
 
 	static class BiomeGenCustom extends BiomeOrdovician {

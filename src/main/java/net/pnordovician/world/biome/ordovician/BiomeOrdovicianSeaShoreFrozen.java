@@ -35,6 +35,8 @@ public class BiomeOrdovicianSeaShoreFrozen extends ElementsLepidodendronMod.ModE
 	public void init(FMLInitializationEvent event) {
 		BiomeDictionary.addTypes(biome, BiomeDictionary.Type.OCEAN);
 		BiomeDictionary.addTypes(biome, BiomeDictionary.Type.WATER);
+		BiomeDictionary.addTypes(biome, BiomeDictionary.Type.COLD);
+		BiomeDictionary.addTypes(biome, BiomeDictionary.Type.SNOWY);
 	}
 
 	static class BiomeGenCustom extends BiomeOrdovician {
