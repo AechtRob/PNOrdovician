@@ -398,14 +398,14 @@ public class ChunkProviderOrdovician implements IChunkGenerator {
                         }
 
                         //For the Land biomes, make hills a bit craggy:
-                        if (((BiomeOrdovician)biome).getBiomeType() == EnumBiomeTypeOrdovician.BarrenLand
+                        if (((BiomeOrdovician)biome).getBiomeType() == EnumBiomeTypeOrdovician.BarrenLand || ((BiomeOrdovician)biome).getBiomeType() == EnumBiomeTypeOrdovician.Estuary
                         ) {
                             //If it's over 90 blocks then start to fill in more as cobble
                             //up to 145
                             int minHeight = SEALEVEL;
                             if (j1 >= minHeight+20) {
                                 int j2 = Math.max(0, j1-83);
-                                double stoneFactor = 1 * (double) j2 / (103D - (double) minHeight);
+                                double stoneFactor = 1 * (double) j2 / (103D - (double) (minHeight+20));
                                 if (Math.random() >= stoneFactor) {
                                     if (Math.random() > 0.22) {
                                         iblockstate = Blocks.COBBLESTONE.getDefaultState();
