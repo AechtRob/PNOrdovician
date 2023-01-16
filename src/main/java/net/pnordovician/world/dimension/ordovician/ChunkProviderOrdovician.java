@@ -398,14 +398,14 @@ public class ChunkProviderOrdovician implements IChunkGenerator {
                         }
 
                         //For the Land biomes, make hills a bit craggy:
-                        if (((BiomeOrdovician)biome).getBiomeType() == EnumBiomeTypeOrdovician.BarrenLand
+                        if (((BiomeOrdovician)biome).getBiomeType() == EnumBiomeTypeOrdovician.BarrenLand || ((BiomeOrdovician)biome).getBiomeType() == EnumBiomeTypeOrdovician.Estuary
                         ) {
                             //If it's over 90 blocks then start to fill in more as cobble
                             //up to 145
-                            int minHeight = 90;
-                            if (j1 >= minHeight) {
-                                int j2 = Math.max(0, 145 - j1);
-                                double stoneFactor = 4 * (double) j2 / (145D - (double) minHeight);
+                            int minHeight = SEALEVEL-1;
+                            if (j1 >= minHeight+20) {
+                                int j2 = Math.max(0, j1-103);
+                                double stoneFactor = 1 * (double) j2 / (103D - (double) (minHeight+20));
                                 if (Math.random() >= stoneFactor) {
                                     if (Math.random() > 0.22) {
                                         iblockstate = Blocks.COBBLESTONE.getDefaultState();
@@ -420,6 +420,26 @@ public class ChunkProviderOrdovician implements IChunkGenerator {
                                     iblockstate1 = Blocks.COBBLESTONE.getDefaultState();
                                     if (rand.nextInt(8) == 0) {
                                         iblockstate1 = Blocks.GRAVEL.getDefaultState();
+                                    }
+                                }
+                            }
+                            if (j1 >= minHeight) {
+                                int j2 = Math.max(0, j1-83);
+                                double stoneFactor = 1 * (double) j2 / (83D - (double) minHeight);
+                                if (Math.random() >= stoneFactor) {
+                                    if (Math.random() > 0.22) {
+                                        iblockstate = Blocks.GRAVEL.getDefaultState();
+                                    } else {
+                                        iblockstate = Blocks.COBBLESTONE.getStateFromMeta(0);
+                                        if (rand.nextInt(8) == 0) {
+                                            iblockstate = Blocks.GRAVEL.getDefaultState();
+                                        }
+                                    }
+                                }
+                                if (Math.random() >= stoneFactor) {
+                                    iblockstate1 = Blocks.GRAVEL.getDefaultState();
+                                    if (rand.nextInt(8) == 0) {
+                                        iblockstate1 = Blocks.COBBLESTONE.getDefaultState();
                                     }
                                 }
                             }
