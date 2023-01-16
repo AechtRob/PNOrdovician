@@ -404,7 +404,7 @@ public class ChunkProviderOrdovician implements IChunkGenerator {
                             //up to 145
                             int minHeight = SEALEVEL-1;
                             if (j1 >= minHeight+20) {
-                                int j2 = Math.max(0, j1-83);
+                                int j2 = Math.max(0, j1-103);
                                 double stoneFactor = 1 * (double) j2 / (103D - (double) (minHeight+20));
                                 if (Math.random() >= stoneFactor) {
                                     if (Math.random() > 0.22) {
