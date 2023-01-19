@@ -4,10 +4,7 @@ package net.pnordovician.world.biome.ordovician;
 import net.lepidodendron.ElementsLepidodendronMod;
 import net.lepidodendron.util.EnumBiomeTypeOrdovician;
 import net.lepidodendron.world.biome.ordovician.BiomeOrdovician;
-import net.lepidodendron.world.gen.WorldGenBacterialCrust;
-import net.lepidodendron.world.gen.WorldGenDollyphyton;
-import net.lepidodendron.world.gen.WorldGenEdwardsiphyton;
-import net.lepidodendron.world.gen.WorldGenRockPiles;
+import net.lepidodendron.world.gen.*;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -60,6 +57,7 @@ public class BiomeOrdovicianLandFlat extends ElementsLepidodendronMod.ModElement
 
 		protected static final WorldGenRockPiles ROCK_PILES_GENERATOR = new WorldGenRockPiles();
     	protected static final WorldGenBacterialCrust CRUST_GENERATOR = new WorldGenBacterialCrust();
+		protected static final WorldGenMicrobialSand MICROBIAL_GENERATOR = new WorldGenMicrobialSand();
 
 		public WorldGenAbstractTree getRandomTreeFeature(Random rand)
 	    {
@@ -79,6 +77,15 @@ public class BiomeOrdovicianLandFlat extends ElementsLepidodendronMod.ModElement
 	                ROCK_PILES_GENERATOR.generate(worldIn, rand, blockpos);
 	            }
 	        }
+
+			if(net.minecraftforge.event.terraingen.TerrainGen.decorate(worldIn, rand, new net.minecraft.util.math.ChunkPos(pos), net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.ROCK))
+				for (int i = 0; i < 6; ++i)
+				{
+					int j = rand.nextInt(16) + 8;
+					int k = rand.nextInt(16) + 8;
+					int l = rand.nextInt(worldIn.getHeight(pos.add(j, 0, k)).getY() + 32);
+					MICROBIAL_GENERATOR.generate(worldIn, rand, pos.add(j, l, k));
+				}
 
 			if(net.minecraftforge.event.terraingen.TerrainGen.decorate(worldIn, rand, new net.minecraft.util.math.ChunkPos(pos), net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.GRASS))
 				for (int i = 0; i < 96; ++i)
