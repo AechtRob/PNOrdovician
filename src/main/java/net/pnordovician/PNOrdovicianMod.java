@@ -27,7 +27,7 @@ import net.pnordovician.PNWandHandler;
 
 import java.util.function.Supplier;
 
-@Mod(modid = PNOrdovicianMod.MODID, name = PNOrdovicianMod.NAME, version = PNOrdovicianMod.VERSION, dependencies = "required-after:lepidodendron@[52.0,)")
+@Mod(modid = PNOrdovicianMod.MODID, name = PNOrdovicianMod.NAME, version = PNOrdovicianMod.VERSION, dependencies = "required-after:lepidodendron@[54.0,)")
 public class PNOrdovicianMod {
     public static final String MODID = "pnordovician";
     public static final String NAME = "Prehistoric Nature Ordovician Dimension";

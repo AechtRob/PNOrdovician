@@ -36,6 +36,7 @@ public class BiomeOrdovicianLagoon extends ElementsLepidodendronMod.ModElement {
 
 	@Override
 	public void init(FMLInitializationEvent event) {
+		BiomeDictionary.addTypes(biome, BiomeDictionary.Type.BEACH);
 		BiomeDictionary.addTypes(biome, BiomeDictionary.Type.WATER);
 	}
 
