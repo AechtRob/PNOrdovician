@@ -163,7 +163,7 @@ public class ChunkProviderOrdovician implements IChunkGenerator {
                 net.minecraftforge.event.terraingen.PopulateChunkEvent.Populate.EventType.ANIMALS)) {
             //int i1 = this.random.nextInt(16) + 8; //This is in the spawner instead:
             //int k1 = this.random.nextInt(16) + 8; //This is in the spawner instead:
-            ChunkGenSpawner.executeProcedure(false, this.world, blockpos, this.random, null, true);
+            ChunkGenSpawner.executeProcedure(this.world, blockpos, this.random, null, true);
         }
 
         net.minecraftforge.event.ForgeEventFactory.onChunkPopulate(false, this, this.world, this.random, x, z, false);
