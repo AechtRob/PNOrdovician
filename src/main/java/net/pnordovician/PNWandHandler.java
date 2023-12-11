@@ -1,5 +1,6 @@
 package net.pnordovician;
 
+import net.lepidodendron.LepidodendronConfig;
 import net.lepidodendron.enchantments.Enchantments;
 import net.lepidodendron.item.ItemBoneWand;
 import net.minecraft.entity.player.EntityPlayer;
@@ -49,7 +50,9 @@ public class PNWandHandler {
                 return;
             }
             if (world.isAirBlock(pos1)) {
-
+                if (world.provider.getDimension() == LepidodendronConfig.dimOrdovician) {
+                    return;
+                }
                 boolean portalSpawnOrdovician = WorldOrdovician.portal.portalSpawn(world, pos1);
 
                 if (portalSpawnOrdovician) {
