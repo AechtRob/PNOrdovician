@@ -102,10 +102,8 @@ public class BiomeOrdovicianSeaIcebergs extends ElementsLepidodendronMod.ModElem
 					i = rand.nextInt(8);
 
 					for (int j = 0; j < i; ++j) {
-						int k = rand.nextInt(16) + 8;
-						int l = rand.nextInt(16) + 8;
-						BlockPos blockpos = worldIn.getHeight(pos.add(k, 0, l));
-						ICEBERG_GENERATOR.generate(worldIn, rand, blockpos);
+						BlockPos blockpos = worldIn.getHeight(pos);
+						ICEBERG_GENERATOR.generate(worldIn, rand, blockpos, true);
 					}
 				}
 			}
@@ -116,12 +114,12 @@ public class BiomeOrdovicianSeaIcebergs extends ElementsLepidodendronMod.ModElem
 					int radius = 2;
 					int j;
 					int k;
-					if (radius < 14) {
-						j = 16 + rand.nextInt(16 - radius - 2) - rand.nextInt(16 - radius - 2);
-						k = 16 + rand.nextInt(16 - radius - 2) - rand.nextInt(16 - radius - 2);
+					if (radius < 10) {
+						j = 16 + (int)Math.floor(rand.nextInt(16 - radius - 6)/2) - (int)Math.floor(rand.nextInt(16 - radius - 6)/2);
+						k = 16 + (int)Math.floor(rand.nextInt(16 - radius - 6)/2) - (int)Math.floor(rand.nextInt(16 - radius - 6)/2);
 					}
 					else {
-						radius = 14;
+						radius = 10;
 						j = 16;
 						k = 16;
 					}

@@ -13,6 +13,7 @@ import net.minecraft.world.biome.BiomeProvider;
 import net.minecraft.world.gen.layer.GenLayer;
 import net.minecraft.world.gen.layer.IntCache;
 import net.minecraft.world.storage.WorldInfo;
+import net.pnordovician.world.biome.ordovician.BiomeOrdovicianSeaIce;
 import net.pnordovician.world.dimension.ordovician.GenLayerOrdovician.GenLayerOrdovician;
 
 import javax.annotation.Nullable;
@@ -21,9 +22,31 @@ import java.util.Random;
 
 public class BiomeProviderOrdovician extends BiomeProvider {
     public static List<Biome> allowedBiomes = Lists.newArrayList(
+            Biome.REGISTRY.getObject(new ResourceLocation("lepidodendron:ordovician_beach")),
+            Biome.REGISTRY.getObject(new ResourceLocation("lepidodendron:ordovician_beach_frozen")),
+            Biome.REGISTRY.getObject(new ResourceLocation("lepidodendron:ordovician_bog")),
+            Biome.REGISTRY.getObject(new ResourceLocation("lepidodendron:ordovician_crags")),
+            Biome.REGISTRY.getObject(new ResourceLocation("lepidodendron:ordovician_creek")),
+            Biome.REGISTRY.getObject(new ResourceLocation("lepidodendron:ordovician_creek_bog")),
+            Biome.REGISTRY.getObject(new ResourceLocation("lepidodendron:ordovician_creek_coastal")),
+            Biome.REGISTRY.getObject(new ResourceLocation("lepidodendron:ordovician_creek_coastal_frozen")),
+            Biome.REGISTRY.getObject(new ResourceLocation("lepidodendron:ordovician_creek_frozen")),
+            Biome.REGISTRY.getObject(new ResourceLocation("lepidodendron:ordovician_hills")),
+            Biome.REGISTRY.getObject(new ResourceLocation("lepidodendron:ordovician_hills_frozen")),
+            Biome.REGISTRY.getObject(new ResourceLocation("lepidodendron:ordovician_lagoon")),
+            Biome.REGISTRY.getObject(new ResourceLocation("lepidodendron:ordovician_lagoon_helper")),
             Biome.REGISTRY.getObject(new ResourceLocation("lepidodendron:ordovician_land")),
+            Biome.REGISTRY.getObject(new ResourceLocation("lepidodendron:ordovician_land_flat")),
+            Biome.REGISTRY.getObject(new ResourceLocation("lepidodendron:ordovician_land_frozen")),
+            Biome.REGISTRY.getObject(new ResourceLocation("lepidodendron:ordovician_algal_reef")),
+            Biome.REGISTRY.getObject(new ResourceLocation("lepidodendron:ordovician_bryozoan_reef")),
             Biome.REGISTRY.getObject(new ResourceLocation("lepidodendron:ordovician_sea")),
-            Biome.REGISTRY.getObject(new ResourceLocation("lepidodendron:ordovician_sea_ice"))
+            Biome.REGISTRY.getObject(new ResourceLocation("lepidodendron:ordovician_sea_ice")),
+            Biome.REGISTRY.getObject(new ResourceLocation("lepidodendron:ordovician_sea_icebergs")),
+            Biome.REGISTRY.getObject(new ResourceLocation("lepidodendron:ordovician_sea_ice_trench")),
+            Biome.REGISTRY.getObject(new ResourceLocation("lepidodendron:ordovician_sea_shore")),
+            Biome.REGISTRY.getObject(new ResourceLocation("lepidodendron:ordovician_sea_shore_frozen")),
+            Biome.REGISTRY.getObject(new ResourceLocation("lepidodendron:ordovician_sponge_forest"))
     );
     public GenLayer genBiomes;
     /** A GenLayer containing the indices into BiomeGenBase.biomeList[] */
@@ -56,7 +79,7 @@ public class BiomeProviderOrdovician extends BiomeProvider {
 
     @Override
     public Biome getBiome(BlockPos pos, Biome defaultBiome) {
-        return this.biomeCache.getBiome(pos.getX(), pos.getZ(), defaultBiome);
+        return this.biomeCache.getBiome(pos.getX(), pos.getZ(), BiomeOrdovicianSeaIce.biome);
     }
 
     @Override
@@ -75,7 +98,7 @@ public class BiomeProviderOrdovician extends BiomeProvider {
         {
             for (int i = 0; i < width * height; ++i)
             {
-                biomes[i] = Biome.getBiome(aint[i], Biome.REGISTRY.getObject(new ResourceLocation("lepidodendron:ordovician_sea")));
+                biomes[i] = Biome.getBiome(aint[i], Biome.REGISTRY.getObject(new ResourceLocation("lepidodendron:ordovician_sea_ice")));
             }
 
             return biomes;
@@ -115,7 +138,7 @@ public class BiomeProviderOrdovician extends BiomeProvider {
 
             for (int i = 0; i < width * length; ++i)
             {
-                listToReuse[i] = Biome.getBiome(aint[i], Biome.REGISTRY.getObject(new ResourceLocation("lepidodendron:ordovician_sea")));
+                listToReuse[i] = Biome.getBiome(aint[i], Biome.REGISTRY.getObject(new ResourceLocation("lepidodendron:ordovician_sea_ice")));
             }
 
             return listToReuse;

@@ -83,12 +83,12 @@ public class BiomeOrdovicianReefAlgae extends ElementsLepidodendronMod.ModElemen
 					int radius = 6;
 					int j;
 					int k;
-					if (radius < 14) {
-						j = 16 + rand.nextInt(16 - radius - 2) - rand.nextInt(16 - radius - 2);
-						k = 16 + rand.nextInt(16 - radius - 2) - rand.nextInt(16 - radius - 2);
+					if (radius < 10) {
+						j = 16 + (int)Math.floor(rand.nextInt(16 - radius - 6)/2) - (int)Math.floor(rand.nextInt(16 - radius - 6)/2);
+						k = 16 + (int)Math.floor(rand.nextInt(16 - radius - 6)/2) - (int)Math.floor(rand.nextInt(16 - radius - 6)/2);
 					}
 					else {
-						radius = 14;
+						radius = 10;
 						j = 16;
 						k = 16;
 					}
@@ -108,12 +108,12 @@ public class BiomeOrdovicianReefAlgae extends ElementsLepidodendronMod.ModElemen
 				int radius = 4;
 				int j;
 				int k;
-				if (radius < 14) {
-					j = 16 + rand.nextInt(16 - radius - 2) - rand.nextInt(16 - radius - 2);
-					k = 16 + rand.nextInt(16 - radius - 2) - rand.nextInt(16 - radius - 2);
+				if (radius < 10) {
+					j = 16 + (int)Math.floor(rand.nextInt(16 - radius - 6)/2) - (int)Math.floor(rand.nextInt(16 - radius - 6)/2);
+					k = 16 + (int)Math.floor(rand.nextInt(16 - radius - 6)/2) - (int)Math.floor(rand.nextInt(16 - radius - 6)/2);
 				}
 				else {
-					radius = 14;
+					radius = 10;
 					j = 16;
 					k = 16;
 				}

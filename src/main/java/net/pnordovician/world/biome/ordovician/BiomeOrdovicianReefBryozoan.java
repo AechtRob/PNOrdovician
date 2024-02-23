@@ -85,12 +85,12 @@ public class BiomeOrdovicianReefBryozoan extends ElementsLepidodendronMod.ModEle
 					int radius = 6;
 					int j;
 					int k;
-					if (radius < 14) {
-						j = 16 + rand.nextInt(16 - radius - 2) - rand.nextInt(16 - radius - 2);
-						k = 16 + rand.nextInt(16 - radius - 2) - rand.nextInt(16 - radius - 2);
+					if (radius < 10) {
+						j = 16 + (int)Math.floor(rand.nextInt(16 - radius - 6)/2) - (int)Math.floor(rand.nextInt(16 - radius - 6)/2);
+						k = 16 + (int)Math.floor(rand.nextInt(16 - radius - 6)/2) - (int)Math.floor(rand.nextInt(16 - radius - 6)/2);
 					}
 					else {
-						radius = 14;
+						radius = 10;
 						j = 16;
 						k = 16;
 					}
@@ -110,15 +110,15 @@ public class BiomeOrdovicianReefBryozoan extends ElementsLepidodendronMod.ModEle
 				int radius = 7;
 				int j;
 				int k;
-				if (radius < 14) {
-					j = 16 + rand.nextInt(16 - radius - 2) - rand.nextInt(16 - radius - 2);
-					k = 16 + rand.nextInt(16 - radius - 2) - rand.nextInt(16 - radius - 2);
-				}
-				else {
-					radius = 14;
-					j = 16;
-					k = 16;
-				}
+				if (radius < 10) {
+						j = 16 + (int)Math.floor(rand.nextInt(16 - radius - 6)/2) - (int)Math.floor(rand.nextInt(16 - radius - 6)/2);
+						k = 16 + (int)Math.floor(rand.nextInt(16 - radius - 6)/2) - (int)Math.floor(rand.nextInt(16 - radius - 6)/2);
+					}
+					else {
+						radius = 10;
+						j = 16;
+						k = 16;
+					}
 				int l = rand.nextInt(worldIn.getHeight(pos.add(j, 0, k)).getY() + 32);
 				BlockPos pos1 = pos.add(j, l, k);
 				if (
