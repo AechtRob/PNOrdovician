@@ -22,32 +22,33 @@ import java.util.Random;
 
 public class BiomeProviderOrdovician extends BiomeProvider {
     public static List<Biome> allowedBiomes = Lists.newArrayList(
-            Biome.REGISTRY.getObject(new ResourceLocation("lepidodendron:ordovician_beach")),
-            Biome.REGISTRY.getObject(new ResourceLocation("lepidodendron:ordovician_beach_frozen")),
-            Biome.REGISTRY.getObject(new ResourceLocation("lepidodendron:ordovician_bog")),
-            Biome.REGISTRY.getObject(new ResourceLocation("lepidodendron:ordovician_crags")),
-            Biome.REGISTRY.getObject(new ResourceLocation("lepidodendron:ordovician_creek")),
-            Biome.REGISTRY.getObject(new ResourceLocation("lepidodendron:ordovician_creek_bog")),
-            Biome.REGISTRY.getObject(new ResourceLocation("lepidodendron:ordovician_creek_coastal")),
-            Biome.REGISTRY.getObject(new ResourceLocation("lepidodendron:ordovician_creek_coastal_frozen")),
-            Biome.REGISTRY.getObject(new ResourceLocation("lepidodendron:ordovician_creek_frozen")),
-            Biome.REGISTRY.getObject(new ResourceLocation("lepidodendron:ordovician_hills")),
-            Biome.REGISTRY.getObject(new ResourceLocation("lepidodendron:ordovician_hills_frozen")),
             Biome.REGISTRY.getObject(new ResourceLocation("lepidodendron:ordovician_lagoon")),
-            Biome.REGISTRY.getObject(new ResourceLocation("lepidodendron:ordovician_lagoon_helper")),
-            Biome.REGISTRY.getObject(new ResourceLocation("lepidodendron:ordovician_land")),
-            Biome.REGISTRY.getObject(new ResourceLocation("lepidodendron:ordovician_land_flat")),
+            Biome.REGISTRY.getObject(new ResourceLocation("lepidodendron:ordovician_creek_frozen")),
             Biome.REGISTRY.getObject(new ResourceLocation("lepidodendron:ordovician_land_frozen")),
-            Biome.REGISTRY.getObject(new ResourceLocation("lepidodendron:ordovician_algal_reef")),
-            Biome.REGISTRY.getObject(new ResourceLocation("lepidodendron:ordovician_bryozoan_reef")),
+            Biome.REGISTRY.getObject(new ResourceLocation("lepidodendron:ordovician_bog")),
+            Biome.REGISTRY.getObject(new ResourceLocation("lepidodendron:ordovician_hills")),
+            Biome.REGISTRY.getObject(new ResourceLocation("lepidodendron:ordovician_beach_frozen")),
+            Biome.REGISTRY.getObject(new ResourceLocation("lepidodendron:ordovician_beach")),
+            Biome.REGISTRY.getObject(new ResourceLocation("lepidodendron:ordovician_creek_bog")),
             Biome.REGISTRY.getObject(new ResourceLocation("lepidodendron:ordovician_sea")),
-            Biome.REGISTRY.getObject(new ResourceLocation("lepidodendron:ordovician_sea_ice")),
-            Biome.REGISTRY.getObject(new ResourceLocation("lepidodendron:ordovician_sea_icebergs")),
-            Biome.REGISTRY.getObject(new ResourceLocation("lepidodendron:ordovician_sea_ice_trench")),
-            Biome.REGISTRY.getObject(new ResourceLocation("lepidodendron:ordovician_sea_shore")),
             Biome.REGISTRY.getObject(new ResourceLocation("lepidodendron:ordovician_sea_shore_frozen")),
-            Biome.REGISTRY.getObject(new ResourceLocation("lepidodendron:ordovician_sponge_forest"))
-    );
+            Biome.REGISTRY.getObject(new ResourceLocation("lepidodendron:ordovician_sea_icebergs")),
+            Biome.REGISTRY.getObject(new ResourceLocation("lepidodendron:ordovician_hills_frozen")),
+            Biome.REGISTRY.getObject(new ResourceLocation("lepidodendron:ordovician_creek_coastal_frozen")),
+            Biome.REGISTRY.getObject(new ResourceLocation("lepidodendron:ordovician_crags")),
+            Biome.REGISTRY.getObject(new ResourceLocation("lepidodendron:ordovician_land_flat")),
+            Biome.REGISTRY.getObject(new ResourceLocation("lepidodendron:ordovician_sea_ice")),
+            Biome.REGISTRY.getObject(new ResourceLocation("lepidodendron:ordovician_land")),
+            Biome.REGISTRY.getObject(new ResourceLocation("lepidodendron:ordovician_lagoon_helper")),
+            Biome.REGISTRY.getObject(new ResourceLocation("lepidodendron:ordovician_sponge_forest")),
+            Biome.REGISTRY.getObject(new ResourceLocation("lepidodendron:ordovician_creek_coastal")),
+            Biome.REGISTRY.getObject(new ResourceLocation("lepidodendron:ordovician_bryozoan_reef")),
+            Biome.REGISTRY.getObject(new ResourceLocation("lepidodendron:ordovician_creek")),
+            Biome.REGISTRY.getObject(new ResourceLocation("lepidodendron:ordovician_sea_shore")),
+            Biome.REGISTRY.getObject(new ResourceLocation("lepidodendron:ordovician_algal_reef")),
+            Biome.REGISTRY.getObject(new ResourceLocation("lepidodendron:ordovician_sea_ice_trench"))
+
+            );
     public GenLayer genBiomes;
     /** A GenLayer containing the indices into BiomeGenBase.biomeList[] */
     public GenLayer biomeIndexLayer;
