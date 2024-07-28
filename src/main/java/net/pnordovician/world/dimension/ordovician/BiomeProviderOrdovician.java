@@ -1,6 +1,8 @@
 package net.pnordovician.world.dimension.ordovician;
 
 import com.google.common.collect.Lists;
+import net.lepidodendron.world.biome.devonian.BiomeDevonian;
+import net.lepidodendron.world.biome.ordovician.BiomeOrdovician;
 import net.minecraft.crash.CrashReport;
 import net.minecraft.crash.CrashReportCategory;
 import net.minecraft.util.ReportedException;
@@ -161,6 +163,9 @@ public class BiomeProviderOrdovician extends BiomeProvider {
                 Biome biome = Biome.getBiome(aint[k1]);
 
                 if (!allowed.contains(biome)) {
+                    return false;
+                }
+                if (!(biome instanceof BiomeOrdovician)) {
                     return false;
                 }
             }

@@ -14,7 +14,7 @@ apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 
-version = '1.12.2-2.03'
+version = '1.12.2-2.04'
 group = 'com.github.aechtrob.pnordovician' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'pnordovician'
 
