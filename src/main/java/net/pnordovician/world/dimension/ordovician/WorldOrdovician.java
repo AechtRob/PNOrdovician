@@ -7,6 +7,8 @@ import net.lepidodendron.block.*;
 import net.lepidodendron.util.Functions;
 import net.lepidodendron.util.ModTriggers;
 import net.lepidodendron.util.ParticlePNPortal;
+import net.lepidodendron.world.biome.cambrian.BiomeCambrian;
+import net.lepidodendron.world.biome.ordovician.BiomeOrdovician;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockPortal;
 import net.minecraft.block.material.Material;
@@ -97,62 +99,12 @@ public class WorldOrdovician extends ElementsPNOrdovicianMod.ModElement {
 		}
 
 		@Override
-		public Biome getBiomeForCoords(BlockPos pos)
-		{
-			//Override to prevent plains biomes being created as a backup ever!
-			return this.getBiomeForCoordsBody(pos, world);
-		}
-
-		public Biome getBiomeForCoordsBody(final BlockPos pos, World worldIn)
-		{
-			if (worldIn.isBlockLoaded(pos))
-			{
-				Chunk chunk = worldIn.getChunk(pos);
-
-				try
-				{
-					return this.getBiome(chunk, pos, worldIn.provider.getBiomeProvider());
-				}
-				catch (Throwable throwable)
-				{
-					CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Getting biome");
-					CrashReportCategory crashreportcategory = crashreport.makeCategory("Coordinates of biome request");
-					crashreportcategory.addDetail("Location", new ICrashReportDetail<String>()
-					{
-						public String call() throws Exception
-						{
-							return CrashReportCategory.getCoordinateInfo(pos);
-						}
-					});
-					throw new ReportedException(crashreport);
-				}
+		public Biome getBiomeForCoords(BlockPos pos) {
+			Biome b = super.getBiomeForCoords(pos);
+			if (b instanceof BiomeOrdovician) {
+				return b;
 			}
-			else
-			{
-				return worldIn.provider.getBiomeProvider().getBiome(pos, BiomeOrdovicianSeaIce.biome);
-			}
-		}
-
-		public Biome getBiome(Chunk chunk, BlockPos pos, BiomeProvider provider)
-		{
-			int i = pos.getX() & 15;
-			int j = pos.getZ() & 15;
-			int k = chunk.getBiomeArray()[j << 4 | i] & 255;
-
-			if (k == 255)
-			{
-				// Forge: checking for client ensures that biomes are only generated on integrated server
-				// in singleplayer. Generating biomes on the client may corrupt the biome ID arrays on
-				// the server while they are being generated because IntCache can't be thread safe,
-				// so client and server may end up filling the same array.
-				// This is not necessary in 1.13 and newer versions.
-				Biome biome = world.isRemote ? BiomeOrdovicianSeaIce.biome : provider.getBiome(pos, BiomeOrdovicianSeaIce.biome);
-				k = Biome.getIdForBiome(biome);
-				chunk.getBiomeArray()[j << 4 | i] = (byte)(k & 255);
-			}
-
-			Biome biome1 = Biome.getBiome(k);
-			return biome1 == null ? BiomeOrdovicianSeaIce.biome : biome1;
+			return BiomeOrdovicianSeaIce.biome;
 		}
 
 		@Override
