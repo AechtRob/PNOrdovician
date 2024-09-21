@@ -43,7 +43,9 @@ import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.gen.IChunkGenerator;
 import net.minecraft.world.gen.layer.GenLayer;
 import net.minecraft.world.gen.layer.IntCache;
+import net.minecraftforge.client.IRenderHandler;
 import net.minecraftforge.common.DimensionManager;
+import net.minecraftforge.fml.client.FMLClientHandler;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -54,6 +56,11 @@ import net.pnordovician.ElementsPNOrdovicianMod;
 import net.pnordovician.world.biome.ordovician.BiomeOrdovicianSeaIce;
 
 import javax.annotation.Nullable;
+
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.Random;
 
 @ElementsPNOrdovicianMod.ModElement.Tag
@@ -67,6 +74,9 @@ public class WorldOrdovician extends ElementsPNOrdovicianMod.ModElement {
 		super(instance, 1590);
 	}
 
+	public static final IRenderHandler skyRenderer = new SkyRendererOrdovician();
+
+	
 	@Override
 	public void initElements() {
 		elements.blocks.add(() -> new BlockCustomPortal());
@@ -96,6 +106,44 @@ public class WorldOrdovician extends ElementsPNOrdovicianMod.ModElement {
 			this.biomeProvider = new BiomeProviderOrdovician(this.world.getSeed(), this.world.getWorldInfo());
 			this.nether = NETHER_TYPE;
 			this.hasSkyLight = true;
+		}
+		
+		@SideOnly(Side.CLIENT)
+		@Override
+		public IRenderHandler getSkyRenderer() {
+			if (LepidodendronConfig.renderCustomSkies) {
+				//Check if optifine is installed:
+				boolean isShaders = false;
+
+				if (FMLClientHandler.instance().hasOptifine()) {
+					//Read from the optionsshaders.txt file:
+					String strFile = null;
+					try {
+						strFile = Minecraft.getMinecraft().gameDir.getCanonicalPath() + "\\optionsshaders.txt";
+					} catch (IOException e) {
+					}
+					try {
+						BufferedReader reader = new BufferedReader(new FileReader(strFile));
+						String line;
+						while ((line = reader.readLine()) != null) {
+							if (line.startsWith("shaderPack=")) {
+								if (!(line.substring(11).equalsIgnoreCase("(internal)")
+										|| line.substring(11).equalsIgnoreCase("OFF"))) {
+									isShaders = true;
+								}
+							}
+						}
+						reader.close();
+					} catch (FileNotFoundException e) {
+					} catch (IOException e) {
+					}
+				}
+				if (isShaders) { // Use the vanilla skyboxes as shaders seem to be in use
+					return super.getSkyRenderer();
+				}
+				return skyRenderer;
+			}
+			return super.getSkyRenderer();
 		}
 
 		@Override
