@@ -473,6 +473,19 @@ public class ChunkProviderOrdovician implements IChunkGenerator {
                             iblockstate = Blocks.GRAVEL.getDefaultState();
                         }
 
+                        //Bog terrain
+                        if (biome == BiomeOrdovicianBog.biome
+                            || biome == BiomeOrdovicianCreekBog.biome) {
+                            if (rand.nextInt(3) == 0) {
+                                iblockstate = BlockClayBrown.block.getDefaultState();
+                            }
+                            if (rand.nextInt(15) == 0) {
+                                iblockstate = BlockPeat.block.getDefaultState();
+                            }
+                            if (rand.nextInt(9) == 0) {
+                                iblockstate = BlockSandBlack.block.getDefaultState();
+                            }
+                        }
 
                         j = k;
                         if (j1 >= i - 1) {
@@ -528,11 +541,15 @@ public class ChunkProviderOrdovician implements IChunkGenerator {
                                 }
                             }
                             else if (biome == BiomeOrdovicianBog.biome || biome == BiomeOrdovicianCreekBog.biome) {
+                                chunkPrimerIn.setBlockState(i1, j1, l, Blocks.GRAVEL.getDefaultState());
                                 if (rand.nextInt(3) == 0) {
                                     chunkPrimerIn.setBlockState(i1, j1, l, BlockSandBlackWavy.block.getDefaultState());
                                 }
-                                else {
+                                else if (rand.nextInt(3) == 0) {
                                     chunkPrimerIn.setBlockState(i1, j1, l, BlockPeat.block.getDefaultState());
+                                }
+                                else if (rand.nextInt(9) == 0) {
+                                    chunkPrimerIn.setBlockState(i1, j1, l, Blocks.SLIME_BLOCK.getDefaultState());
                                 }
                             }
                             else if (((BiomeOrdovician)biome).getBiomeType() == EnumBiomeTypeOrdovician.FrozenOcean) {
