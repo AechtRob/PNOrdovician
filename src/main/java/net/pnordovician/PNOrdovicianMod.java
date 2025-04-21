@@ -27,11 +27,11 @@ import net.pnordovician.PNWandHandler;
 
 import java.util.function.Supplier;
 
-@Mod(modid = PNOrdovicianMod.MODID, name = PNOrdovicianMod.NAME, version = PNOrdovicianMod.VERSION, dependencies = "required-after:lepidodendron@[62.0,)")
+@Mod(modid = PNOrdovicianMod.MODID, name = PNOrdovicianMod.NAME, version = PNOrdovicianMod.VERSION, dependencies = "required-after:lepidodendron@[63.0,)")
 public class PNOrdovicianMod {
     public static final String MODID = "pnordovician";
     public static final String NAME = "Prehistoric Nature Ordovician Dimension";
-    public static final String VERSION = "3.0";
+    public static final String VERSION = "4.0";
     public static final SimpleNetworkWrapper PACKET_HANDLER = NetworkRegistry.INSTANCE.newSimpleChannel("pnordovician:a");
     @SidedProxy(clientSide = "net.pnordovician.ClientProxyPNOrdovicianMod", serverSide = "net.pnordovician.ServerProxyPNOrdovicianMod")
     public static IProxyPNOrdovicianMod proxy;
