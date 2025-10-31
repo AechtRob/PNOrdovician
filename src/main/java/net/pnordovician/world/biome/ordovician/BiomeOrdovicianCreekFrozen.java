@@ -2,16 +2,16 @@
 package net.pnordovician.world.biome.ordovician;
 
 import net.lepidodendron.ElementsLepidodendronMod;
+import net.lepidodendron.block.*;
 import net.lepidodendron.util.EnumBiomeTypeOrdovician;
 import net.lepidodendron.world.biome.ordovician.BiomeOrdovician;
-import net.lepidodendron.world.gen.WorldGenIceOnSea;
-import net.lepidodendron.world.gen.WorldGenRockPiles;
-import net.lepidodendron.world.gen.WorldGenSnow;
+import net.lepidodendron.world.gen.*;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenAbstractTree;
 import net.minecraftforge.common.BiomeDictionary;
+import net.minecraftforge.event.terraingen.DecorateBiomeEvent;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
@@ -62,6 +62,19 @@ public class BiomeOrdovicianCreekFrozen extends ElementsLepidodendronMod.ModElem
 		protected static final WorldGenRockPiles ROCK_PILES_GENERATOR = new WorldGenRockPiles();
 		protected static final WorldGenSnow SNOW_GENERATOR = new WorldGenSnow();
 		protected static final WorldGenIceOnSea ICE_GENERATOR = new WorldGenIceOnSea();
+		protected static final WorldGenSingleStaticInWaterUpwards STATIC_GENERATOR = new WorldGenSingleStaticInWaterUpwards();
+		protected static final WorldGenSingleStaticInWaterRotational STATIC_ROTATIONAL_GENERATOR = new WorldGenSingleStaticInWaterRotational();
+		protected static final WorldGenSingleStaticInWaterSideways STATIC_SIDEWAYS_GENERATOR = new WorldGenSingleStaticInWaterSideways();
+		protected static final WorldGenSingleAnemoneSea ANEMONE_GENERATOR = new WorldGenSingleAnemoneSea();
+		protected static final WorldGenSingleSponge SPONGE_GENERATOR = new WorldGenSingleSponge();
+		protected static final WorldGenSingleSpongeSideways SPONGE_SIDEWAYS_GENERATOR = new WorldGenSingleSpongeSideways();
+		protected static final WorldGenSingleBlastoid BLASTOID_GENERATOR = new WorldGenSingleBlastoid();
+		protected static final WorldGenSingleBlastoidSideways BLASTOID_SIDEWAYS_GENERATOR = new WorldGenSingleBlastoidSideways();
+		protected static final WorldGenSingleFenestella FENESTELLA_GENERATOR = new WorldGenSingleFenestella();
+		protected static final WorldGenSingleFenestellaSideways FENESTELLA_SIDEWAYS_GENERATOR = new WorldGenSingleFenestellaSideways();
+		protected static final WorldGenSingleRugoseCoral RUGOSA_GENERATOR = new WorldGenSingleRugoseCoral();
+		protected static final WorldGenSingleRugoseCoralSideways RUGOSA_SIDEWAYS_GENERATOR = new WorldGenSingleRugoseCoralSideways();
+		protected static final WorldGenSingleTabulateCoral TABULATE_GENERATOR = new WorldGenSingleTabulateCoral();
 
 		public WorldGenAbstractTree getRandomTreeFeature(Random rand)
 	    {
@@ -104,6 +117,66 @@ public class BiomeOrdovicianCreekFrozen extends ElementsLepidodendronMod.ModElem
 					BlockPos blockpos = worldIn.getHeight(pos.add(k, 0, l));
 					SNOW_GENERATOR.generate(worldIn, rand, blockpos, 0);
 				}
+
+
+
+
+
+
+
+				if(net.minecraftforge.event.terraingen.TerrainGen.decorate(worldIn, rand, new net.minecraft.util.math.ChunkPos(pos), DecorateBiomeEvent.Decorate.EventType.GRASS))
+					for (int ii = 0; ii < 17; ++ii)
+					{
+						int j = rand.nextInt(16) + 8;
+						int k = rand.nextInt(16) + 8;
+						int l = rand.nextInt(worldIn.getSeaLevel() + 25);
+						STATIC_GENERATOR.generate(BlockGreenAlgaeMat.block.getDefaultState(), worldIn, rand, pos.add(j, l, k), 1, 15, 35, 255);
+					}
+
+				if(net.minecraftforge.event.terraingen.TerrainGen.decorate(worldIn, rand, new net.minecraft.util.math.ChunkPos(pos), DecorateBiomeEvent.Decorate.EventType.GRASS))
+					for (int ii = 0; ii < 27; ++ii)
+					{
+						int j = rand.nextInt(16) + 8;
+						int k = rand.nextInt(16) + 8;
+						int l = rand.nextInt(worldIn.getSeaLevel() + 25);
+						STATIC_GENERATOR.generate(BlockGreenCrustedAlgae.block.getDefaultState(), worldIn, rand, pos.add(j, l, k), 1, 15, 35, 255);
+					}
+
+				if(net.minecraftforge.event.terraingen.TerrainGen.decorate(worldIn, rand, new net.minecraft.util.math.ChunkPos(pos), DecorateBiomeEvent.Decorate.EventType.GRASS))
+					for (int ii = 0; ii < 27; ++ii)
+					{
+						int j = rand.nextInt(16) + 8;
+						int k = rand.nextInt(16) + 8;
+						int l = rand.nextInt(worldIn.getSeaLevel() + 25);
+						STATIC_SIDEWAYS_GENERATOR.generate(BlockGreenCrustedAlgae.block.getDefaultState(), worldIn, rand, pos.add(j, l, k), 1, 15, 35, 255);
+					}
+
+				if(net.minecraftforge.event.terraingen.TerrainGen.decorate(worldIn, rand, new net.minecraft.util.math.ChunkPos(pos), DecorateBiomeEvent.Decorate.EventType.GRASS))
+					for (int ii = 0; ii < 27; ++ii)
+					{
+						int j = rand.nextInt(16) + 8;
+						int k = rand.nextInt(16) + 8;
+						int l = rand.nextInt(worldIn.getSeaLevel() + 25);
+						STATIC_GENERATOR.generate(BlockGreenSproutingAlgae.block.getDefaultState(), worldIn, rand, pos.add(j, l, k), 1, 15, 35, 255);
+					}
+
+				if(net.minecraftforge.event.terraingen.TerrainGen.decorate(worldIn, rand, new net.minecraft.util.math.ChunkPos(pos), DecorateBiomeEvent.Decorate.EventType.GRASS))
+					for (int ii = 0; ii < 27; ++ii)
+					{
+						int j = rand.nextInt(16) + 8;
+						int k = rand.nextInt(16) + 8;
+						int l = rand.nextInt(worldIn.getSeaLevel() + 25);
+						STATIC_GENERATOR.generate(BlockPiledAlgae.block.getDefaultState(), worldIn, rand, pos.add(j, l, k), 1, 15, 35, 255);
+					}
+
+				if(net.minecraftforge.event.terraingen.TerrainGen.decorate(worldIn, rand, new net.minecraft.util.math.ChunkPos(pos), DecorateBiomeEvent.Decorate.EventType.GRASS))
+					for (int ii = 0; ii < 27; ++ii)
+					{
+						int j = rand.nextInt(16) + 8;
+						int k = rand.nextInt(16) + 8;
+						int l = rand.nextInt(worldIn.getSeaLevel() + 25);
+						STATIC_GENERATOR.generate(BlockStalkedAlgae.block.getDefaultState(), worldIn, rand, pos.add(j, l, k), 1, 15, 35, 255);
+					}
 
 			}
 
