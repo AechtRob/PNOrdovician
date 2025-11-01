@@ -563,7 +563,7 @@ public class ChunkProviderOrdovician implements IChunkGenerator {
                             }
                             else if (Math.random() > 0.7) {
                                 if (biome == BiomeOrdovicianSpongeForest.biome && j1 < i - 6) {
-                                    int r = rand.nextInt(6);
+                                    int r = rand.nextInt(7);
                                     switch (r) {
                                         case 0: default:
                                             chunkPrimerIn.setBlockState(i1, j1, l, BlockStromatoporoideaReef.block.getDefaultState().withProperty(BlockStromatoporoideaReef.FACING, EnumFacing.NORTH));
@@ -582,6 +582,8 @@ public class ChunkProviderOrdovician implements IChunkGenerator {
                                             break;
                                         case 5:
                                             chunkPrimerIn.setBlockState(i1, j1, l, Blocks.STONE.getDefaultState());
+                                        case 6:
+                                            chunkPrimerIn.setBlockState(i1, j1, l, Blocks.SPONGE.getStateFromMeta(1));
                                     }
                                 }
                                 else {
