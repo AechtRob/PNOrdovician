@@ -586,6 +586,15 @@ public class BiomeOrdovicianReefAlgae extends ElementsLepidodendronMod.ModElemen
 					STATIC_GENERATOR.generate(BlockStalkedAlgae.block.getDefaultState(), worldIn, rand, pos.add(j, l, k), 1, 15, 35, 255);
 				}
 
+			if(net.minecraftforge.event.terraingen.TerrainGen.decorate(worldIn, rand, new net.minecraft.util.math.ChunkPos(pos), net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.GRASS))
+				for (int i = 0; i < 9; ++i)
+				{
+					int j = rand.nextInt(16) + 8;
+					int k = rand.nextInt(16) + 8;
+					int l = ChunkGenSpawner.getTopSolidBlock(pos.add(j, 0, k), worldIn).getY() + 1;
+					STATIC_GENERATOR.generate(BlockWaterBottomGunk.block.getDefaultState(), worldIn, rand, pos.add(j, l, k), 1, 255, 0, 255);
+				}
+
 
 			super.decorate(worldIn, rand, pos);
 	    }
